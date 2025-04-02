@@ -26,7 +26,6 @@ elementosEnPosicionesPares [] = []
 elementosEnPosicionesPares (x:xs) = if null xs
 then [x]
 else x : elementosEnPosicionesPares (tail xs)
-
 --no es estructural
 
 entrelazar :: [a] -> [a] -> [a]
@@ -49,5 +48,15 @@ sacarUna  = (\e -> recr (\x xs rec -> if e == x then xs else x: rec)[])
 insertarOrdenado :: Ord a => a -> [a] -> [a]
 insertarOrdenado = (\e -> recr(\x xs rec -> if e <= x then e: x: xs else x: rec) [])
 
+mapPares:: (a -> a -> b) -> [(a,a)] -> [b]
+mapPares f = foldr(\(x,y) rec -> f x y : rec) []
 
+mapPares2::(a -> a -> b) -> [(a,a)] -> [b]
+mapPares2 f = map(uncurry f)
+
+armarPares:: [a] -> [b] -> [(a,b)]
+armarPares xs ys = fst (foldl(\(rec, ys') x -> case ys' of
+                                                    (y:ys'') -> (rec ++ [(x,y)], ys'')
+                                                    [] -> (rec, []))
+                                                    ([], ys) xs)
 
