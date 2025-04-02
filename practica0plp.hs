@@ -41,3 +41,13 @@ recr f z (x:xs) = f x xs (recr f z xs)
 
 sublistas:: [a] -> [[a]]
 sublistas = recr (\x xs rec -> [[]] ++ map (x:) (prefijos xs) ++ rec) [[]]
+--anda mal, la lista vacia aparece repetida varias veces, preguntar
+
+sacarUna :: Eq a => a -> [a] -> [a]
+sacarUna  = (\e -> recr (\x xs rec -> if e == x then xs else x: rec)[])
+
+insertarOrdenado :: Ord a => a -> [a] -> [a]
+insertarOrdenado = (\e -> recr(\x xs rec -> if e <= x then e: x: xs else x: rec) [])
+
+
+
