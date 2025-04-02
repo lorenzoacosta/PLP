@@ -60,3 +60,5 @@ armarPares xs ys = fst (foldl(\(rec, ys') x -> case ys' of
                                                     [] -> (rec, []))
                                                     ([], ys) xs)
 
+mapDoble::(a -> a -> b) -> [a] -> [a] -> [b]
+mapDoble f xs ys = foldr(\(x,y) rec -> f x y :rec) [] (armarPares xs ys)
